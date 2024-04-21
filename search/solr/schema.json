@@ -1,0 +1,128 @@
+{
+    "add-field-type": {
+      "name": "string_exact",
+      "class": "solr.StrField",
+      "sortMissingLast": "true"
+    },
+    "add-field-type": {
+      "name": "text_exact",
+      "class": "solr.TextField",
+      "sortMissingLast": "true",
+      "analyzer": {
+        "tokenizer": {
+          "class": "solr.KeywordTokenizerFactory"
+        }
+      }
+    },
+    "add-field-type": {
+      "name": "date",
+      "class": "solr.DatePointField",
+      "sortMissingLast": "true"
+    },
+    "add-field": [
+      {
+        "name": "title",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "author",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "pub_date",
+        "type": "date",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "case_number",
+        "type": "string_exact",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "date_delivered",
+        "type": "date",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "judges",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "court",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "parties",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "advocates",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "citation",
+        "type": "text_exact",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "file_page_url",
+        "type": "string_exact",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "file_download_url",
+        "type": "string_exact",
+        "indexed": "true",
+        "stored": "true"
+      },
+      {
+        "name": "text",
+        "type": "text_general",
+        "indexed": "true",
+        "stored": "true"
+      }
+    ],
+    "add-copy-field": [
+      {
+        "source": "title",
+        "dest": "text"
+      },
+      {
+        "source": "author",
+        "dest": "text"
+      },
+      {
+        "source": "judges",
+        "dest": "text"
+      },
+      {
+        "source": "court",
+        "dest": "text"
+      },
+      {
+        "source": "parties",
+        "dest": "text"
+      },
+      {
+        "source": "advocates",
+        "dest": "text"
+      }
+    ]
+  }  

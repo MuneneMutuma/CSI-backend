@@ -1,0 +1,5 @@
+csi/
+data/.crawler/
+data/files/
+.env
+search/solr-9.5.0/

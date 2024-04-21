@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example_schema" version="1.6">
+  <types>
+    <!-- Define custom field types -->
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <!-- Standard tokenizer for tokenizing on whitespace and punctuation -->
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- Stopwords filter to remove common English stopwords -->
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+        <!-- Lowercase filter to convert text to lowercase -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <!-- Standard tokenizer for tokenizing on whitespace and punctuation -->
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- Synonym filter for synonym expansion -->
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <!-- Stopwords filter to remove common English stopwords -->
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+        <!-- Lowercase filter to convert text to lowercase -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+    <fieldType name="string_exact" class="solr.StrField" sortMissingLast="true"/>
+    <fieldType name="text_exact" class="solr.TextField" sortMissingLast="true">
+      <analyzer>
+        <!-- Keyword tokenizer for exact matching -->
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+      </analyzer>
+    </fieldType>
+    <fieldType name="date" class="solr.DatePointField" sortMissingLast="true"/>
+  </types>
+
+  <fields>
+    <!-- Define fields -->
+    <field name="id" type="string" indexed="true" stored="true" required="true"/>
+    <field name="title" type="text_general" indexed="true" stored="true"/>
+    <field name="author" type="text_general" indexed="true" stored="true"/>
+    <field name="pub_date" type="date" indexed="true" stored="true"/>
+    <field name="case_number" type="string_exact" indexed="true" stored="true"/>
+    <field name="date_delivered" type="date" indexed="true" stored="true"/>
+    <field name="judges" type="text_general" indexed="true" stored="true"/>
+    <field name="court" type="text_general" indexed="true" stored="true"/>
+    <field name="parties" type="text_general" indexed="true" stored="true"/>
+    <field name="advocates" type="text_general" indexed="true" stored="true"/>
+    <field name="citation" type="text_exact" indexed="true" stored="true"/>
+    <field name="file_page_url" type="string_exact" indexed="true" stored="true"/>
+    <field name="file_download_url" type="string_exact" indexed="true" stored="true"/>
+    <field name="text" type="text_general" indexed="true" stored="true"/>
+
+    <!-- Define copy fields for full-text search -->
+    <copyField source="title" dest="text"/>
+    <copyField source="author" dest="text"/>
+    <copyField source="judges" dest="text"/>
+    <copyField source="court" dest="text"/>
+    <copyField source="parties" dest="text"/>
+    <copyField source="advocates" dest="text"/>
+    <!-- Add other copy fields as needed -->
+  </fields>
+
+  <!-- Define unique key field -->
+  <uniqueKey>id</uniqueKey>
+
+  <!-- Define default search field -->
+  <defaultSearchField>text</defaultSearchField>
+
+</schema>
